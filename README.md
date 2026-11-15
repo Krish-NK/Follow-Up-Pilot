@@ -2,6 +2,8 @@
 
 A lightweight CRM and sales follow-up assistant for freelancers, agencies, independent salespeople, and small businesses.
 
+**Need help?** Start with the in-app **Quick Support** guide at the bottom of the workspace. It explains browser recommendations, Opera 403 errors, server startup, health checks, and port conflicts.
+
 ## Features
 - Dashboard with lead totals, pipeline value, conversion tracking, and follow-ups due.
 - Create, edit, search, filter, and delete leads.
@@ -11,6 +13,16 @@ A lightweight CRM and sales follow-up assistant for freelancers, agencies, indep
 - Export leads to CSV.
 - Responsive desktop and mobile interface.
 - SQLite storage. No paid API keys or external database required.
+
+## Browser recommendations
+
+Use a current, updated browser:
+- **Google Chrome:** recommended cross-platform starting point.
+- **Microsoft Edge:** another strong cross-platform option.
+- **Mozilla Firefox:** supported alternative.
+- **Apple Safari:** recommended option on macOS.
+
+FollowUpPilot uses standard browser features such as Fetch, modern JavaScript, and CSS. Keep your browser updated. Browser extensions, VPNs, proxies, antivirus web shields, and strict privacy settings can interfere with local addresses even when the app itself is working.
 
 ## Run locally
 
@@ -50,20 +62,63 @@ A lightweight CRM and sales follow-up assistant for freelancers, agencies, indep
    python app.py
    ```
 
-7. Open **http://127.0.0.1:5000** in your browser. Keep the Terminal window open while using the app.
+7. Open **http://127.0.0.1:5000/** in your browser. Keep the Terminal window open while using the app.
 
-The app creates its SQLite database in the Flask instance folder automatically. This keeps the database location stable even if the app is launched from another working directory.
+The app creates its SQLite database in the Flask instance folder automatically. The first run creates the database. When upgrading from an older version, the app attempts to copy the previous project-root database into the new instance folder if one exists.
 
-## Browser troubleshooting
+## Troubleshooting guide
 
-- If the page does not load, confirm the Terminal still shows the server is running.
-- Try **http://localhost:5000/** as an alternative to **http://127.0.0.1:5000/**.
-- If one browser shows **403 Access Denied** but another browser works, the request may be blocked by that browser, a VPN, proxy, privacy setting, or extension. Try a private window or another browser, and check those browser settings. A browser-generated 403 is not necessarily an application response.
-- Check the server's Terminal output for the request and status code. The app's health endpoint is **http://127.0.0.1:5000/api/health** and should return JSON with `"status":"ok"`.
-- If port 5000 is already in use, stop the other process or start with another port:
-  macOS/Linux: `PORT=5001 python app.py`
-  Windows PowerShell: `$env:PORT=5001; python app.py`
-  Then visit **http://127.0.0.1:5001**.
+### 1. Browser says 403 Forbidden or Access Denied
+
+First, check whether the page is a browser-branded block page or an app response:
+1. Open **http://127.0.0.1:5000/api/health**.
+2. Check the Terminal window. If the request never appears in the Flask log, the browser, extension, VPN, proxy, or another local security tool may be blocking it before it reaches the app.
+3. Try the same address in a different browser. If Safari or Chrome works but Opera does not, the app is likely running and the issue is specific to the failing browser or its settings.
+
+**For Opera:**
+- Open a Private window and test again.
+- Temporarily turn off Opera VPN for this test.
+- Check Opera Settings for a configured proxy.
+- Temporarily disable the ad blocker and privacy extensions, or add a site exception for the local app if the extension supports it.
+- Try **http://localhost:5000/** instead of **http://127.0.0.1:5000/**.
+- Restore your preferred privacy protections after testing. Do not permanently disable security features just to use the app.
+
+These steps are troubleshooting suggestions, not a guarantee that every 403 has the same cause. A 403 returned by the Flask app will appear in its Terminal request log; a browser-generated block may not.
+
+### 2. This site can't be reached / connection refused
+- Confirm the server is running and the Terminal window has not been closed.
+- Start it again from the project folder with the virtual environment activated: `python app.py`.
+- Visit **http://127.0.0.1:5000/**, not an HTTPS address.
+- Check the health endpoint: **http://127.0.0.1:5000/api/health**. A healthy response includes `"status":"ok"`.
+
+### 3. Port 5000 is already in use
+Start on another port:
+
+macOS/Linux:
+```bash
+PORT=5001 python app.py
+```
+
+Windows PowerShell:
+```powershell
+$env:PORT=5001
+python app.py
+```
+
+Then visit **http://127.0.0.1:5001/**.
+
+### 4. Changes are not appearing
+- Refresh the page.
+- If necessary, do a hard refresh: `Cmd + Shift + R` on Mac or `Ctrl + Shift + R` on Windows/Linux.
+- Confirm you extracted and launched the latest project folder, not an older copy.
+
+### 5. API or database error
+- Check the Terminal output for the first Python error message.
+- Confirm the virtual environment is activated and dependencies installed with `python -m pip install -r requirements.txt`.
+- Do not delete the database file to troubleshoot unless you have a backup. It contains your saved leads.
+
+### 6. Still not working?
+Record the browser name/version, operating system, exact URL, error text, and the last relevant lines from the Terminal. Remove or hide any customer contact information before sharing logs or screenshots. Test the health endpoint and another browser to help identify whether the problem is browser-side or server-side.
 
 ## Deployment and data safety
 
