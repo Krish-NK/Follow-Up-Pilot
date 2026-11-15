@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FollowUpPilot | Sales workspace</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head><body>
+<div class="shell">
+<aside class="sidebar"><a class="brand" href="#"><span class="mark">F</span> followup<span>pilot</span></a>
+<p class="section-label">WORKSPACE</p>
+<button class="nav active" data-view="overview">▦ &nbsp; Overview</button>
+<button class="nav" data-view="leads">♙ &nbsp; All leads <b id="navCount">0</b></button>
+<button class="nav" data-view="followups">◷ &nbsp; Follow-ups</button>
+<div class="side-note"><strong>Small steps. More sales.</strong><p>Consistent follow-ups turn good conversations into great business.</p></div>
+<div class="account"><div class="avatar">K</div><div><strong>Your workspace</strong><small>Personal account</small></div></div>
+</aside>
+<main><header><div class="crumb">Workspace / <strong id="crumb">Overview</strong></div><button class="primary" id="addTop">＋ Add lead</button></header>
+<div class="page"><div class="intro"><div><small>YOUR SALES COMMAND CENTRE</small><h1 id="title">Good to see you.</h1><p id="subtitle">Here’s what’s happening with your leads today.</p></div><a href="/api/export">↓ Export CSV</a></div>
+<div class="stats">
+<div class="stat"><label>Total leads</label><strong id="total">0</strong><small>All contacts in your workspace</small></div>
+<div class="stat"><label>Active pipeline</label><strong id="pipeline">₹0</strong><small>Potential deal value</small></div>
+<div class="stat"><label>Follow-ups due</label><strong id="due">0</strong><small id="overdue">0 overdue</small></div>
+<div class="stat"><label>Conversion rate</label><strong id="conversion">0%</strong><small id="converted">0 converted leads</small></div>
+</div>
+<div class="overview" id="overview">
+<section class="panel"><div class="panel-head"><div><h2>Lead pipeline</h2><p>See where your opportunities stand.</p></div></div><div id="stages"></div></section>
+<section class="panel"><div class="panel-head"><div><h2>On your radar</h2><p>Your next actions, all in one place.</p></div></div><div id="radar"></div><button class="soft full" data-goto="followups">View follow-up list →</button></section>
+</div>
+<section class="panel table-panel"><div class="panel-head"><div><h2 id="tableTitle">Recent leads</h2><p>Keep every conversation moving forward.</p></div><button class="primary" id="addMain">＋ Add lead</button></div>
+<div class="tools"><input id="search" placeholder="Search name, company or email…"><select id="statusFilter"><option value="">All statuses</option><option>New</option><option>Contacted</option><option>Interested</option><option>Converted</option><option>Lost</option></select><select id="dueFilter"><option value="">Any follow-up</option><option value="upcoming">Upcoming</option><option value="overdue">Overdue</option></select></div>
+<div class="table-wrap"><table><thead><tr><th>LEAD</th><th>STATUS</th><th>DEAL VALUE</th><th>NEXT FOLLOW-UP</th><th>SOURCE</th><th></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div>
+<footer id="count">Showing 0 leads</footer></section>
+</div></main></div>
+<div class="backdrop" id="modal"><section class="dialog"><div class="dialog-head"><div><small>CONTACT DETAILS</small><h2 id="modalTitle">Add a new lead</h2><p>Capture the details and plan the next conversation.</p></div><button class="close" id="close">×</button></div>
+<form id="form"><input type="hidden" id="leadId"><div class="fields">
+<label>Full name *<input id="name" required maxlength="100" placeholder="Alex Morgan"></label>
+<label>Company<input id="company" placeholder="Company name"></label>
+<label>Email<input id="email" type="email" placeholder="alex@company.com"></label>
+<label>Phone<input id="phone" placeholder="+91 98765 43210"></label>
+<label>Lead source<select id="source"><option>Website</option><option>Referral</option><option>LinkedIn</option><option>Instagram</option><option>Cold outreach</option><option>Event</option><option>Other</option></select></label>
+<label>Status<select id="status"><option>New</option><option>Contacted</option><option>Interested</option><option>Converted</option><option>Lost</option></select></label>
+<label>Potential deal value (₹)<input id="value" type="number" min="0" step="1" placeholder="0"></label>
+<label>Next follow-up<input id="follow_up" type="date"></label>
+<label class="wide">Conversation notes<textarea id="notes" rows="3" placeholder="What did you discuss? What happens next?"></textarea></label>
+</div><p class="error" id="error"></p><div class="actions"><button type="button" class="soft" id="cancel">Cancel</button><button class="primary" type="submit">Save lead →</button></div></form>
+</section></div><div class="toast" id="toast"></div>
+<script src="{{ url_for('static', filename='app.js') }}"></script></body></html>
