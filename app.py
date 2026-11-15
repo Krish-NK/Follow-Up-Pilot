@@ -1,5 +1,6 @@
 from datetime import date
 from pathlib import Path
+import shutil
 import csv
 import io
 import math
@@ -11,6 +12,9 @@ from flask import Flask, jsonify, make_response, render_template, request
 app = Flask(__name__, instance_relative_config=True)
 Path(app.instance_path).mkdir(parents=True, exist_ok=True)
 DB_PATH = Path(app.instance_path) / "followup_pilot.db"
+LEGACY_DB_PATH = Path(__file__).resolve().parent / "followup_pilot.db"
+if LEGACY_DB_PATH.exists() and not DB_PATH.exists():
+    shutil.copy2(LEGACY_DB_PATH, DB_PATH)
 STATUSES = {"New", "Contacted", "Interested", "Converted", "Lost"}
 
 
