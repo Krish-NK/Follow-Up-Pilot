@@ -29,7 +29,19 @@
 <section class="panel table-panel"><div class="panel-head"><div><h2 id="tableTitle">Recent leads</h2><p>Keep every conversation moving forward.</p></div><button class="primary" id="addMain">＋ Add lead</button></div>
 <div class="tools"><input id="search" placeholder="Search name, company or email…"><select id="statusFilter"><option value="">All statuses</option><option>New</option><option>Contacted</option><option>Interested</option><option>Converted</option><option>Lost</option></select><select id="dueFilter"><option value="">Any follow-up</option><option value="upcoming">Upcoming</option><option value="overdue">Overdue</option></select></div>
 <div class="table-wrap"><table><thead><tr><th>LEAD</th><th>STATUS</th><th>DEAL VALUE</th><th>NEXT FOLLOW-UP</th><th>SOURCE</th><th></th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div>
-<footer id="count">Showing 0 leads</footer></section>
+<footer id="count">Showing 0 leads</footer></section><section class="help-panel" aria-labelledby="helpTitle">
+  <div class="help-heading"><div><small>QUICK SUPPORT</small><h2 id="helpTitle">Having trouble opening FollowUpPilot?</h2><p>These steps solve the most common local setup and browser problems.</p></div><span class="help-icon" aria-hidden="true">?</span></div>
+  <div class="help-grid">
+    <article><h3>1. Recommended browsers</h3><p>Use an up-to-date version of <strong>Google Chrome</strong>, <strong>Microsoft Edge</strong>, <strong>Firefox</strong> or <strong>Safari</strong>. Safari is a good choice on Mac. Chrome and Edge are good cross-platform choices.</p></article>
+    <article><h3>2. Opera shows 403 / Access Denied</h3><p>Try a Private window first. If it still happens, temporarily turn off Opera VPN and proxy, then allow or disable ad-blocking and privacy extensions for this local address. Re-enable protections after testing. You can also try <code>http://localhost:5000/</code>.</p></article>
+    <article><h3>3. Page cannot be reached</h3><p>Keep the Terminal or PowerShell window open while using the app. If the server stopped, return to the project folder, activate <code>.venv</code>, and run <code>python app.py</code> again.</p></article>
+    <article><h3>4. Check the app connection</h3><p>Open <a href="/api/health">the health check</a>. A working app returns <code>status: ok</code>. If it fails, check the server output in Terminal for the error.</p></article>
+    <article><h3>5. Port 5000 is busy</h3><p>Start on another port: macOS/Linux <code>PORT=5001 python app.py</code>. Windows PowerShell <code>$env:PORT=5001; python app.py</code>. Then open <code>http://127.0.0.1:5001/</code>.</p></article>
+    <article><h3>6. Still stuck?</h3><p>Try another supported browser and check whether the same address works there. If only one browser fails, its VPN, proxy, extension or privacy settings are likely involved. If every browser fails, inspect the server log first.</p></article>
+  </div>
+  <p class="help-note"><strong>Privacy note:</strong> FollowUpPilot currently runs on your own computer. Do not share your local address as a public website. Browser-generated 403 pages are different from errors returned by the app.</p>
+</section>
+
 </div></main></div>
 <div class="backdrop" id="modal"><section class="dialog"><div class="dialog-head"><div><small>CONTACT DETAILS</small><h2 id="modalTitle">Add a new lead</h2><p>Capture the details and plan the next conversation.</p></div><button class="close" id="close">×</button></div>
 <form id="form"><input type="hidden" id="leadId"><div class="fields">
